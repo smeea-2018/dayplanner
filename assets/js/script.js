@@ -26,4 +26,9 @@ const renderTimeblock = () => {
   console.log("hi");
 };
 
-$(window).on("load", renderTimeblock);
+const renderDayPlanner = () =>{
+    GetDate();
+    renderTimeblock();
+}
+
+$(window).on("load", renderDayPlanner);
