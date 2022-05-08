@@ -2,15 +2,18 @@ body {
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
   line-height: 1;
+  background-color: antiquewhite;
 }
 
 textarea {
-  background: transparent;
+  /* background: transparent;
   border: none;
-  resize: none;
+  
   color: #000000;
   border-left: 1px solid black;
   padding: 10px;
+  align-items: center; */
+  resize: none;
 }
 
 .jumbotron {
@@ -32,6 +35,9 @@ textarea {
 
 .button {
   height: 100%;
+  background-color: blueviolet;
+  border-radius: 10px;
+  /* margin-left: 10px; */
 }
 
 .time-block-label {
@@ -44,11 +50,11 @@ textarea {
   border-radius: 15px;
 }
 
-.row {
-  white-space: pre-wrap;
+/*.row {
+   white-space: pre-wrap;
   height: 80px;
   border-top: 1px solid white;
-}
+} */
 
 .hour {
   background-color: #ffffff;
