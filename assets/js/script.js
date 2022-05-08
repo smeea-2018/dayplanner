@@ -11,6 +11,7 @@ const workingHoursArray = [
   { timeLabel: "5pm", key: 17 },
 ];
 
+//Store Value in LS
 const getFromLocalStorage = () => {
   //get value from local storage
   JSON.parse(localStorage.getItem("schedule"));
@@ -32,13 +33,30 @@ const storeInLS = (schedule) => {
   }
 };
 
-const renderTimeblock = (workingHoursArray) => {
-  //get current hour
+const getClassName = (workingHoursArray) => {
   const currentTime = moment().hour();
-  console.log(currentTime);
+  if (workingHoursArray < currentTime) {
+    return parseInt;
+  }
+  if (workingHoursArray == currentTime) {
+    return present;
+  }
 
+  if (workingHoursArray > currentTime) {
+    return future;
+  }
+
+  const getEventForTimeBlock = (workingHoursArray) => {
+    const planner = getFromLocalStorage("planner", {});
+
+    return planner[workingHoursArray] || "";
+  };
+};
+const renderTimeblock = (workingHoursArray) => {
   //target container div
   const containerDiv = $("row-p2");
+
+  //create time blocks
 
   const timeBlock = `<div class="row p-2 my-2 ${getClassName(
     workingHoursArray.key
@@ -63,6 +81,7 @@ const renderTimeblock = (workingHoursArray) => {
   //append to parentdiv
   containerDiv.append(timeBlock);
 };
+//loop through the array to create time blocks
 workingHoursArray.forEach(renderTimeblock);
 
 const schedule = {
@@ -70,23 +89,8 @@ const schedule = {
   textValue,
 };
 
-//compare data-value with current hour
-/*if (timerblockLabel.data - value < currentTime) {
-    console.log("past");
-  }*/
-
-// if(){}
-
-// $function(){
-//   $("#time-block-button-9"). click(function()
-//   //get value from text area
-//   var textareaValue = $("time-block-text-9").value();
-//   localStorage.setItem("toDoList",textareaValue);
-//   )
-// };
-
-containerDiv.click("storeInLS");
-// };
+/*containerDiv.click("storeInLS");
+ };*/
 
 const displayDate = (dateToday) => {
   $("#currentDay").empty().append(dateToday);
@@ -94,14 +98,14 @@ const displayDate = (dateToday) => {
 
 const getDate = () => {
   //get date from moment
-  const dateToday = moment().format("MMM Do YY");
+  const dateToday = moment().format(" MMM Do YY");
   //function called to display date
   displayDate(dateToday);
-  console.log(dateToday);
 };
 
 const renderDayPlanner = () => {
   // function to get date is called
+
   getDate();
 
   //function to render timeblocks is called
