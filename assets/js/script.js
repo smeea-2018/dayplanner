@@ -11,12 +11,20 @@ workingHoursArray = [
   { timeLabel: "5pm", key: 17 },
 ];
 
+const storeInLS = () => {};
+
 const renderTimeblock = () => {
   var currentTime = moment().hour();
   console.log(currentTime);
 
   var containerDiv = $("#time - block - container");
-  var timerblockLabelDiv = $("<div>");
+  console.log(containerDiv);
+
+  var texArea = $("textarea-timeblock");
+
+  console.log(texArea.value);
+
+  /*var timerblockLabelDiv = $("<div>");
 
   timerblockLabelDiv.attr("class", "timeblock");
 
@@ -26,18 +34,27 @@ const renderTimeblock = () => {
   timerblockLabel.attr("data-value", 9);
 
   timerblockLabelDiv.append(timerblockLabel);
-  containerDiv.append(timerblockLabelDiv);
-  console.log("hi");
+  containerDiv.append(timerblockLabelDiv);*/
 
   //compare data-value with current hour
-  if (timerblockLabel.data - value < currentTime) {
+  /*if (timerblockLabel.data - value < currentTime) {
     console.log("past");
-  }
+  }*/
 
-  $function(){
-    $("#time-block-button-9")
-  };
+  // if(){}
+
+  // $function(){
+  //   $("#time-block-button-9"). click(function()
+  //   //get value from text area
+  //   var textareaValue = $("time-block-text-9").value();
+  //   localStorage.setItem("toDoList",textareaValue);
+  //   )
+  // };
+
+  containerDiv.click("storeInLS");
 };
+
+getFromLocalStorage = () => {};
 
 const displayDate = (dateToday) => {
   $("#dateDiv").append($("<h2/>").text("h"));
