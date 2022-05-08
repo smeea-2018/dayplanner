@@ -30,7 +30,7 @@
     </header>
     <div class="container">
       <!-- Timeblocks go here -->
-      <div class="time-block-container">
+      <div id="time-block-container">
         <div class="timeblock">
           <label class="time-block-label">9:00</label>
         </div>
@@ -41,7 +41,19 @@
           <button class="button" id="time-block-button-9" type="submit">
             Submit
           </button>
-          <h2>timeblock below are genrated via jquery</h2>
+        </div>
+      </div>
+      <div id="time-block-container">
+        <div class="timeblock">
+          <label class="time-block-label" data-value="9">9:00</label>
+        </div>
+        <div class="timeblock">
+          <input type="text" class="time-block-text-9" />
+        </div>
+        <div>
+          <button class="button" id="time-block-button-9" type="submit">
+            Submit
+          </button>
         </div>
       </div>
     </div>
