@@ -16,6 +16,7 @@ const workingHoursArray = [
 const getFromLocalStorage = (schedule, defaultValue) => {
   //get value from local storage
   const valueFromLs = JSON.parse(localStorage.getItem(schedule));
+  console.log(valueFromLs);
   if (valueFromLs) {
     return valueFromLs;
   } else {
@@ -34,13 +35,13 @@ const saveToLS = (event) => {
     const key = target.attr("data-hour");
     console.log(key);
     // get object want to save
-    const value = $(`textarea[data-textarea-key="${key}"]`).val().trim();
+    const value = $(`textarea[data-value=${key}]`).val(); /*.trim()*/
     console.log(value);
 
     const schedule = getFromLocalStorage("toDoList", {});
 
     schedule[key] = value;
-
+    console.log(schedule[key]);
     storeInLocalStorage("toDoList", schedule);
   }
 };
@@ -101,7 +102,7 @@ const displayDate = (dateToday) => {
 
 const getDate = () => {
   //get date from moment
-  const dateToday = moment().format(" MMM Do YY");
+  const dateToday = moment().format("MMMM Do YYYY, h:mm:ss a");
   //function called to display date
   displayDate(dateToday);
 };
