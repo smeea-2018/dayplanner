@@ -1,3 +1,4 @@
+const timeBlocks = $("#time-blocks");
 // Define global object
 const workingHoursArray = [
   { timeLabel: "9am", key: 9 },
@@ -12,85 +13,87 @@ const workingHoursArray = [
 ];
 
 //Store Value in LS
-const getFromLocalStorage = () => {
+const getFromLocalStorage = (schedule, defaultValue) => {
   //get value from local storage
-  JSON.parse(localStorage.getItem("schedule"));
-};
-
-const storeInLS = (schedule) => {
-  //if no value exists in local storage
-  if (!toDoList) {
-    //set to do list as null
-    localStorage.setItem("toDoList", JSON.stringify([]));
+  const valueFromLs = JSON.parse(localStorage.getItem(schedule));
+  if (valueFromLs) {
+    return valueFromLs;
   } else {
-    //get value from ls
-    getFromLocalStorage();
-
-    //append schedule value to array
-    //
-    //write in ls
-    localStorage.setItem("toDoList", JSON.stringify(schedule));
+    return defaultValue;
   }
 };
 
+const storeInLocalStorage = (key, value) => {
+  localStorage.setItem(key, JSON.stringify(value));
+};
+
+const saveToLS = (event) => {
+  const target = $(event.target);
+  if (target.is("button")) {
+    console.log("click");
+    const key = target.attr("data-hour");
+    console.log(key);
+    // get object want to save
+    const value = $(`textarea[data-textarea-key="${key}"]`).val().trim();
+    console.log(value);
+
+    const schedule = getFromLocalStorage("toDoList", {});
+
+    schedule[key] = value;
+
+    storeInLocalStorage("toDoList", schedule);
+  }
+};
 const getClassName = (workingHoursArray) => {
   const currentTime = moment().hour();
   if (workingHoursArray < currentTime) {
-    return parseInt;
+    return "past";
   }
   if (workingHoursArray == currentTime) {
-    return present;
+    return "present";
   }
 
   if (workingHoursArray > currentTime) {
-    return future;
+    return "future";
   }
-
-  const getEventForTimeBlock = (workingHoursArray) => {
-    const planner = getFromLocalStorage("planner", {});
-
-    return planner[workingHoursArray] || "";
-  };
 };
-const renderTimeblock = (workingHoursArray) => {
-  //target container div
-  const containerDiv = $("row-p2");
+const getEventForTimeBlock = (workingHoursArray) => {
+  const schedule = getFromLocalStorage("toDoList", {});
 
-  //create time blocks
+  return schedule[workingHoursArray] || "";
+};
 
-  const timeBlock = `<div class="row p-2 my-2 ${getClassName(
-    workingHoursArray.key
-  )}">
-  <div class ="col-md-1 col-sm-12 text-center my-1 d-flex flex-column justify-content-center>${
+const renderTimeBlocks = () => {
+  const renderTimeblock = (workingHoursArray) => {
+    //create time blocks
+
+    const timeBlock = `<div class="row p-2 my-2 ${getClassName(
+      workingHoursArray.key
+    )}">
+  <div class ="col-md-1 col-sm-12 text-center my-1 d-flex flex-column justify-content-center">${
     workingHoursArray.timeLabel
-  }"></div>
-      <input type="text"
+  }></div>
+      <textarea  id ="text-value"
           class="col-md-9 col-sm-12 border border-dark" data-value=${
             workingHoursArray.key
           } 
          
-        > ${getEventForTimeBlock(workingHoursArray.key)}</input>
+        > ${getEventForTimeBlock(workingHoursArray.key)}</textarea>
         <div
           class="col-md-2 col-sm-12 text-center my-1 d-flex flex-column justify-content-center"
         >
           <button type="button" data-hour=${
-            workingDay.key
-          }class="btn btn-success">Save</button>
+            workingHoursArray.key
+          } class="btn btn-success">Save</button>
         </div>`;
 
-  //append to parentdiv
-  containerDiv.append(timeBlock);
-};
-//loop through the array to create time blocks
-workingHoursArray.forEach(renderTimeblock);
+    //append to parentdiv
 
-const schedule = {
-  timeLabel,
-  textValue,
+    timeBlocks.append(timeBlock);
+  };
+  //loop through the array to create time blocks
+  workingHoursArray.forEach(renderTimeblock);
 };
-
-/*containerDiv.click("storeInLS");
- };*/
 
 const displayDate = (dateToday) => {
   $("#currentDay").empty().append(dateToday);
@@ -109,7 +112,9 @@ const renderDayPlanner = () => {
   getDate();
 
   //function to render timeblocks is called
-  renderTimeblock();
+  renderTimeBlocks();
 };
+
+timeBlocks.click(saveToLS);
 
 $(window).on("load", renderDayPlanner);
