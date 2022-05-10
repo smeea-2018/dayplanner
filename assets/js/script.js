@@ -73,7 +73,7 @@ const renderTimeBlocks = () => {
     )}">
   <div class ="col-md-1 col-sm-12 text-center my-1 d-flex flex-column justify-content-center">${
     workingHoursArray.timeLabel
-  }></div>
+  }</div>
       <textarea  id ="text-value"
           class="col-md-9 col-sm-12 border border-dark" data-value=${
             workingHoursArray.key
