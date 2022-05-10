@@ -102,7 +102,7 @@ const displayDate = (dateToday) => {
 
 const getDate = () => {
   //get date from moment
-  const dateToday = moment().format("MMMM Do YYYY, h:mm:ss a");
+  const dateToday = moment().format("dddd MMMM Do YYYY");
   //function called to display date
   displayDate(dateToday);
 };
